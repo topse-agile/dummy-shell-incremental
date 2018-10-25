@@ -1,0 +1,16 @@
+
+public class DummySchell {
+
+	public static void echo(String string) {
+		String newString = string;
+		if (string.charAt(0) == '\"' && string.charAt(string.length() - 1) == '\"') {
+			newString = string.substring(1, string.length() - 1);
+		}
+		if (string.charAt(0) == '\'' && string.charAt(string.length() - 1) == '\'') {
+			newString = string.substring(1, string.length() - 1);
+		}
+
+		System.out.println(newString);
+	}
+
+}
