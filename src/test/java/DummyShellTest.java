@@ -148,11 +148,33 @@ public class DummyShellTest {
 		for (File path : paths) {
 			if (!path.exists())
 				continue;
-			else if (path.isDirectory())
+			else if (path.isDirectory()) {
 				deleteFolder(path);
-			else if (path.isFile())
+				path.delete();
+			} else if (path.isFile())
 				path.delete();
 		}
 	}
 
+	@Test
+	public void testDisplayFilesWhenOnlyFolder() throws IOException {
+
+		deleteFolder(new File("./test"));
+
+		File file1 = new File("./test/file1.txt");
+		File file2 = new File("./test/file2.txt");
+		File dir = new File("./test/dir1");
+
+		file1.createNewFile();
+		file2.createNewFile();
+		dir.mkdir();
+
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(out));
+
+		DummySchell.ls("");
+
+		assertThat(out.toString(), is("dir1    file1.txt    file2.txt" + System.lineSeparator()));
+
+	}
 }
