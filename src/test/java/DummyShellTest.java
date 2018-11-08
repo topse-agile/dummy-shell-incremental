@@ -119,4 +119,40 @@ public class DummyShellTest {
 		assertThat(lastModifiedTime2 / 1000, is(Calendar.getInstance().getTime().getTime() / 1000));
 
 	}
+
+	@Test
+	public void testDisplayFilesWhenOnlyFileExist() throws IOException {
+
+		deleteFolder(new File("./test"));
+
+		File file1 = new File("./test/file1.txt");
+		File file2 = new File("./test/file2.txt");
+
+		file1.createNewFile();
+		file2.createNewFile();
+
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(out));
+
+		DummySchell.ls("");
+
+		assertThat(out.toString(), is("file1.txt    file2.txt" + System.lineSeparator()));
+
+	}
+
+	private void deleteFolder(File dir) {
+
+		File[] paths = dir.listFiles();
+		if (paths == null)
+			return;
+		for (File path : paths) {
+			if (!path.exists())
+				continue;
+			else if (path.isDirectory())
+				deleteFolder(path);
+			else if (path.isFile())
+				path.delete();
+		}
+	}
+
 }
