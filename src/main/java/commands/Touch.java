@@ -16,7 +16,7 @@ public class Touch extends Command {
 
 		for (String fileName : split) {
 
-			File file = new File(fileName);
+			File file = new File("./test/" + fileName);
 
 			if (file.exists()) {
 				file.setLastModified(Calendar.getInstance().getTime().getTime());

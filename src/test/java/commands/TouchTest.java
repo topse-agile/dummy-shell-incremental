@@ -24,22 +24,22 @@ public class TouchTest {
 	@Test
 	public void testMakefile() {
 
-		new File("file1.txt").delete();
+		new File("./test/file1.txt").delete();
 
 		this.command.run("file1.txt");
 
-		assertTrue(new File("file1.txt").exists());
+		assertTrue(new File("./test/file1.txt").exists());
 	}
 
 	@Test
 	public void testMakefiles() {
-		new File("file1.txt").delete();
-		new File("file2.txt").delete();
+		new File("./test/file1.txt").delete();
+		new File("./test/file2.txt").delete();
 
 		this.command.run("file1.txt file2.txt");
 
-		assertTrue(new File("file1.txt").exists());
-		assertTrue(new File("file2.txt").exists());
+		assertTrue(new File("./test/file1.txt").exists());
+		assertTrue(new File("./test/file2.txt").exists());
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class TouchTest {
 	@Test
 	public void testUpdatefileTimestamp() throws IOException {
 
-		File file = new File("file1.txt");
+		File file = new File("./test/file1.txt");
 		file.createNewFile();
 
 		Calendar cal = Calendar.getInstance();
@@ -74,7 +74,7 @@ public class TouchTest {
 	@Test
 	public void testUpdatefilesTimestamp() throws IOException {
 
-		File file = new File("file1.txt");
+		File file = new File("./test/file1.txt");
 		file.createNewFile();
 
 		Calendar cal = Calendar.getInstance();
@@ -82,7 +82,7 @@ public class TouchTest {
 		cal.set(2018, 10, 01, 20, 44, 00);
 		file.setLastModified(cal.getTimeInMillis());
 
-		File file2 = new File("file2.txt");
+		File file2 = new File("./test/file2.txt");
 		file2.createNewFile();
 
 		file2.setLastModified(cal.getTimeInMillis());
