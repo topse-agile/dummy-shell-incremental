@@ -17,14 +17,12 @@ public class LsTest {
 
 	@Before
 	public void setUp() {
-		this.command = new Ls();
-		
+		deleteFolder(new File("./test"));
+		this.command = new Ls();		
 	}
 
 	@Test
 	public void testDisplayFilesWhenOnlyFileExist() throws IOException {
-		deleteFolder(new File("./test"));
-
 		File file1 = new File("./test/file1.txt");
 		File file2 = new File("./test/file2.txt");
 
@@ -41,9 +39,6 @@ public class LsTest {
 
 	@Test
 	public void testDisplayFilesWhenOnlyFolder() throws IOException {
-
-		deleteFolder(new File("./test"));
-
 		File file1 = new File("./test/file1.txt");
 		File file2 = new File("./test/file2.txt");
 		File dir = new File("./test/dir1");
@@ -61,7 +56,6 @@ public class LsTest {
 	}
 
 	private void deleteFolder(File dir) {
-
 		File[] paths = dir.listFiles();
 		if (paths == null)
 			return;
