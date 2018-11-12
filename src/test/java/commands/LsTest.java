@@ -1,7 +1,7 @@
 package commands;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,7 +18,7 @@ public class LsTest {
 	@Before
 	public void setUp() {
 		deleteFolder(new File("./test"));
-		this.command = new Ls();		
+		this.command = new Ls();
 	}
 
 	@Test

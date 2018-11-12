@@ -1,7 +1,7 @@
 package commands;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class EchoTest {
-	
+
 	private Command command;
 
 	@Before
