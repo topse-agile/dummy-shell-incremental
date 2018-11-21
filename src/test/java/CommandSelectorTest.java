@@ -18,7 +18,6 @@ public class CommandSelectorTest {
 		assertThat(out.toString(), is("Hello World!" + System.lineSeparator()));// printlnの改行部分はlineSeparatorを付ける
 	}
 
-	@SuppressWarnings("static-access")
 	@Test
 	public void 空文字のケースの確認() {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
