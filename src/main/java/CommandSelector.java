@@ -1,3 +1,7 @@
+import commands.Command;
+import commands.Echo;
+import commands.Ls;
+import commands.Touch;
 
 public class CommandSelector {
 
@@ -9,12 +13,22 @@ public class CommandSelector {
 
 		String[] split = input.split(" ", 2);
 
-		String command = split[0];
+		String commandName = split[0];
 		String message = split[1];
 
-		switch (command) {
+		Command command = null;
+		switch (commandName) {
 		case "echo":
-			DummySchell.echo(message);
+			command = new Echo();
+			command.run(message);
+			break;
+		case "touch":
+			command = new Touch();
+			command.run(message);
+			break;
+		case "ls":
+			command = new Ls();
+			command.run(message);
 			break;
 		default:
 			throw new RuntimeException();
