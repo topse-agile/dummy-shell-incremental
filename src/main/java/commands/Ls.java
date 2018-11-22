@@ -91,9 +91,4 @@ public class Ls extends Command {
 	private boolean showHiddenFile(ArrayList<String> options) {
 		return options.size() > 0 && options.get(0).equals("-a");
 	}
-
-	private boolean showDirectory(ArrayList<String> paths) {
-		return paths.size() > 0 && paths.get(0).equals("sample");
-	}
-
 }
