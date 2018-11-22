@@ -7,61 +7,45 @@ import java.util.List;
 
 public class Ls extends Command {
 	private final String SEPARATOR = "    ";
+	private final String HOME_DIR = "./test";
 
 	@Override
 	public void run(String params) {
-		File homeDir = new File("./test");
-
-		List<String> fileNames = new ArrayList<String>();
-
 		String[] split = params.split(" ", 2);
 		ArrayList<String> options = extractOptions(split);
 		ArrayList<String> paths = extractPaths(split);
 
 		if (paths.size() == 0) {
-			if (showHiddenFile(options)) {
-				fileNames.add(".");
-				fileNames.add("..");
-			}
-			File[] listFiles = homeDir.listFiles();
-			sort(listFiles);
-			
-			for (File file : listFiles) {
-				if (showHiddenFile(options)) {
-					fileNames.add(file.getName());
-				} else {
-					if (!isHidden(file)) {
-						fileNames.add(file.getName());
-					}
-				}
-			}
-			String str = String.join(SEPARATOR, fileNames);
-			System.out.println(str);
+			File homeDir = new File(HOME_DIR);
+			showFiles(homeDir, options);
 		} else {
 			for (String path : paths) {
-				File dir = new File("./test/" + path);
-				System.err.print(path);
-
-				if (showHiddenFile(options)) {
-					fileNames.add(".");
-					fileNames.add("..");
-				}
-				File[] listFiles = dir.listFiles();
-				sort(listFiles);
-				
-				for (File file : listFiles) {
-					if (showHiddenFile(options)) {
-						fileNames.add(file.getName());
-					} else {
-						if (!isHidden(file)) {
-							fileNames.add(file.getName());
-						}
-					}
-				}
-				String str = String.join(SEPARATOR, fileNames);
-				System.out.println(str);
+				File dir = new File(HOME_DIR + "/" + path);
+				showFiles(dir, options);
 			}
 		}
+	}
+
+	private void showFiles(File homeDir, ArrayList<String> options) {
+		List<String> fileNames = new ArrayList<String>();
+		if (showHiddenFile(options)) {
+			fileNames.add(".");
+			fileNames.add("..");
+		}
+		File[] listFiles = homeDir.listFiles();
+		sort(listFiles);
+		
+		for (File file : listFiles) {
+			if (showHiddenFile(options)) {
+				fileNames.add(file.getName());
+			} else {
+				if (!isHidden(file)) {
+					fileNames.add(file.getName());
+				}
+			}
+		}
+		String str = String.join(SEPARATOR, fileNames);
+		System.out.println(str);
 	}
 
 	private void sort(File[] listFiles) {
@@ -75,7 +59,7 @@ public class Ls extends Command {
 	private ArrayList<String> extractPaths(String[] split) {
 		ArrayList<String> arrayList = new ArrayList<String>();
 		for (String param : split) {
-			if (!param.startsWith("-") && new File("./test/" + param).exists()) {
+			if (!param.startsWith("-") && new File(HOME_DIR + "/" + param).exists()) {
 				arrayList.add(param);
 			}
 		}
