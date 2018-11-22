@@ -43,7 +43,7 @@ public class Ls extends Command {
 		}
 		File[] listFiles = homeDir.listFiles();
 		sort(listFiles);
-		
+
 		for (File file : listFiles) {
 			if (showHiddenFile(options)) {
 				fileNames.add(file.getName());
