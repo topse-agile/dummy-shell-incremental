@@ -129,6 +129,34 @@ public class LsTest {
 		assertThat(out.toString(), is("directory1" + SEPARATOR + "file1" + System.lineSeparator()));
 	}
 
+	@Test
+	public void testDisplayFileAndDirectoryEachDirectoryWhenSpecifyChildDirectory2() throws IOException {
+		File hoge = new File("./test/hoge");
+		File hogeFile = new File("./test/hoge/file");
+		File hogeDir = new File("./test/hoge/dir");
+		hoge.mkdir();
+		hogeFile.createNewFile();
+		hogeDir.mkdir();
+
+		File fuga = new File("./test/fuga");
+		File fugaFile = new File("./test/fuga/file");
+		File fugaDir = new File("./test/fuga/dir");
+		fuga.mkdir();
+		fugaFile.createNewFile();
+		fugaDir.mkdir();
+
+		this.command.run("hoge fuga");
+
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("hoge:" + System.lineSeparator());
+		stringBuilder.append("dir" + SEPARATOR + "file" + System.lineSeparator());
+		stringBuilder.append(System.lineSeparator());
+		stringBuilder.append("fuga:" + System.lineSeparator());
+		stringBuilder.append("dir" + SEPARATOR + "file" + System.lineSeparator());
+
+		assertThat(out.toString(), is(stringBuilder.toString()));
+	}
+
 	private void deleteFolder(File dir) {
 		File[] paths = dir.listFiles();
 		if (paths == null)
