@@ -9,7 +9,7 @@ public class Touch extends Command {
 	@Override
 	public void run(String params) {
 		if (params.equals("")) {
-			System.out.println("usage:");
+			println("usage:");
 			return;
 		}
 
@@ -17,7 +17,7 @@ public class Touch extends Command {
 
 		for (String fileName : split) {
 
-			File file = new File("./test/" + fileName);
+			File file = new File(currentDir + "/" + fileName);
 
 			if (file.exists()) {
 				file.setLastModified(Calendar.getInstance().getTime().getTime());
@@ -27,7 +27,7 @@ public class Touch extends Command {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				System.out.println("ファイルの作成でエラーが発生しました。 エラー内容 : " + e.getMessage());
+				println("ファイルの作成でエラーが発生しました。 エラー内容 : " + e.getMessage());
 			}
 		}
 	}

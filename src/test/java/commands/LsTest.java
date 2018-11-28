@@ -11,6 +11,8 @@ import java.io.PrintStream;
 import org.junit.Before;
 import org.junit.Test;
 
+import utilities.FileUtil;
+
 public class LsTest {
 
 	private Command command;
@@ -20,7 +22,7 @@ public class LsTest {
 
 	@Before
 	public void setUp() {
-		deleteFolder(new File("./test"));
+		FileUtil.deleteFolder(new File("./test"));
 		this.command = new Ls();
 
 		out = new ByteArrayOutputStream();
@@ -155,21 +157,6 @@ public class LsTest {
 		stringBuilder.append("dir" + SEPARATOR + "file" + System.lineSeparator());
 
 		assertThat(out.toString(), is(stringBuilder.toString()));
-	}
-
-	private void deleteFolder(File dir) {
-		File[] paths = dir.listFiles();
-		if (paths == null)
-			return;
-		for (File path : paths) {
-			if (!path.exists())
-				continue;
-			else if (path.isDirectory()) {
-				deleteFolder(path);
-				path.delete();
-			} else if (path.isFile())
-				path.delete();
-		}
 	}
 
 }

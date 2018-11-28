@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Ls extends Command {
 	private final String SEPARATOR = "    ";
-	private final String HOME_DIR = "./test";
 
 	@Override
 	public void run(String params) {
@@ -17,19 +16,19 @@ public class Ls extends Command {
 		ArrayList<String> paths = extractPaths(split);
 
 		if (paths.size() == 0) {
-			File homeDir = new File(HOME_DIR);
+			File homeDir = new File(currentDir);
 			showFiles(homeDir, options);
 		} else if (paths.size() == 1) {
-			File dir = new File(HOME_DIR + "/" + paths.get(0));
+			File dir = new File(currentDir + "/" + paths.get(0));
 			showFiles(dir, options);
 		} else {
 			for (Iterator<String> iterator = paths.iterator(); iterator.hasNext();) {
-				String path = (String) iterator.next();
-				System.out.println(path + ":");
-				File dir = new File(HOME_DIR + "/" + paths.get(0));
+				String path = iterator.next();
+				println(path + ":");
+				File dir = new File(currentDir + "/" + paths.get(0));
 				showFiles(dir, options);
 				if (iterator.hasNext()) {
-					System.out.println();
+					println();
 				}
 			}
 		}
@@ -54,11 +53,12 @@ public class Ls extends Command {
 			}
 		}
 		String str = String.join(SEPARATOR, fileNames);
-		System.out.println(str);
+		println(str);
 	}
 
 	private void sort(File[] listFiles) {
 		Arrays.sort(listFiles, new java.util.Comparator<File>() {
+			@Override
 			public int compare(File file1, File file2) {
 				return file1.getName().compareTo(file2.getName());
 			}
@@ -68,7 +68,7 @@ public class Ls extends Command {
 	private ArrayList<String> extractPaths(String[] split) {
 		ArrayList<String> arrayList = new ArrayList<String>();
 		for (String param : split) {
-			if (!param.startsWith("-") && new File(HOME_DIR + "/" + param).exists()) {
+			if (!param.startsWith("-") && new File(currentDir + "/" + param).exists()) {
 				arrayList.add(param);
 			}
 		}

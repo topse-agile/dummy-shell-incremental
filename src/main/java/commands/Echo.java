@@ -12,7 +12,7 @@ public class Echo extends Command {
 			newString = string.substring(1, string.length() - 1);
 		}
 
-		System.out.println(newString);
+		println(newString);
 	}
 
 }
