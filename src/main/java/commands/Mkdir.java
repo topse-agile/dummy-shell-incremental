@@ -15,17 +15,12 @@ public class Mkdir extends Command {
 		}
 		String[] split = trimmedParams.split(" ");
 
-		if (split[0].startsWith("-p")) {
-			for (String dir : split) {
-				if (!new File(currentDir + "/" + dir).mkdirs()) {
-					println(String.format(ERR_MSG, dir));
-				}
-			}
-		} else {
-			for (String dir : split) {
-				if (!new File(currentDir + "/" + dir).mkdir()) {
-					println(String.format(ERR_MSG, dir));
-				}
+		boolean isRecursively = split[0].startsWith("-p");
+		int startIndex = isRecursively ? 1 : 0;
+		for (int i = startIndex; i < split.length; i++) {
+			String dir = split[i];
+			if (!new File(currentDir + "/" + dir).mkdirs()) {
+				println(String.format(ERR_MSG, dir));
 			}
 		}
 	}
