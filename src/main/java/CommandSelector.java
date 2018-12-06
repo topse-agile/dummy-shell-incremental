@@ -14,7 +14,10 @@ public class CommandSelector {
 		String[] split = input.split(" ", 2);
 
 		String commandName = split[0];
-		String message = split[1];
+		String message = "";
+		if (split.length == 2) {
+			message = split[1];
+		}
 
 		Command command = null;
 		switch (commandName) {
