@@ -1,0 +1,32 @@
+@startuml class
+
+class App {
+  +{static} void main(String[] args)
+}
+
+class CommandSelector {
+  +{static} void execute(String input)
+}
+
+abstract class Command {
+  #final String currentDir = "./test"
+  +{abstract} void run(String params)
+}
+
+class Echo
+
+class Ls
+
+class Mkdir
+
+class Touch
+
+App -> CommandSelector : use
+CommandSelector -> Command : use
+Command <|-- Echo
+Command <|-- Ls
+Command <|-- Mkdir
+Command <|-- Touch
+
+
+@enduml
